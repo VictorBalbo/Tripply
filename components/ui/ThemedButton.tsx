@@ -1,5 +1,5 @@
 import { Colors } from '@/constants/Theme';
-import { getThemeProperty } from '@/hooks/useTheme';
+import { getThemeProperty } from '@/hooks';
 import { SFSymbol } from 'expo-symbols';
 import React, { useRef } from 'react';
 import {

@@ -1,6 +1,6 @@
 import { View, type ViewProps } from 'react-native';
 
-import { useThemeColor } from '@/hooks/useTheme';
+import { useThemeColor } from '@/hooks';
 
 export type ThemedViewProps = ViewProps & {
   softBackground?: boolean;

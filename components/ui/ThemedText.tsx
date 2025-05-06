@@ -1,5 +1,5 @@
 import { Theme } from '@/constants/Theme';
-import { useThemeColor } from '@/hooks/useTheme';
+import { useThemeColor } from '@/hooks';
 import { StyleSheet, Text, type TextProps } from 'react-native';
 
 export enum TextType {
