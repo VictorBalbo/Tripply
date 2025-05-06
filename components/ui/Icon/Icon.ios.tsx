@@ -1,7 +1,8 @@
+import { useThemeColor } from '@/hooks/useTheme';
 import { SymbolView, SymbolViewProps, SymbolWeight } from 'expo-symbols';
 import { StyleProp, ViewStyle } from 'react-native';
 
-export function IconSymbol({
+export function Icon({
   name,
   size = 24,
   color,
@@ -10,10 +11,14 @@ export function IconSymbol({
 }: {
   name: SymbolViewProps['name'];
   size?: number;
-  color: string;
+  color?: string;
   style?: StyleProp<ViewStyle>;
   weight?: SymbolWeight;
 }) {
+  const defaultColor = useThemeColor('activeTint');
+  if (!color) {
+    color = defaultColor;
+  }
   return (
     <SymbolView
       weight={weight}
