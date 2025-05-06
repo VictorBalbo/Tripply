@@ -1,20 +1,14 @@
 import { Colors } from '@/constants/Theme';
-import { getThemeProperty } from '@/hooks';
 import { SFSymbol } from 'expo-symbols';
-import React, { useRef } from 'react';
-import {
-  Animated,
-  Pressable,
-  StyleProp,
-  StyleSheet,
-  ViewStyle,
-} from 'react-native';
+import { StyleProp, ViewStyle } from 'react-native';
 import { Icon } from './Icon/Icon';
+import { PressableView } from './PressableView';
 import { TextType, ThemedText } from './ThemedText';
 
 export enum ButtonType {
   Primary = 'primary',
   Secondary = 'secondary',
+  Delete = 'delete',
 }
 
 interface ButtonProps {
@@ -32,43 +26,15 @@ export const ThemedButton = ({
   type = ButtonType.Primary,
   style,
 }: ButtonProps) => {
-  const scaleAnim = useRef(new Animated.Value(1)).current;
-  const opacityAnim = useRef(new Animated.Value(1)).current;
-
-  const handlePressIn = () => {
-    Animated.parallel([
-      Animated.spring(scaleAnim, {
-        toValue: 0.95, // Scale down
-        useNativeDriver: true,
-      }),
-      Animated.timing(opacityAnim, {
-        toValue: 0.7, // Reduce opacity
-        duration: 150,
-        useNativeDriver: true,
-      }),
-    ]).start();
-  };
-
-  const handlePressOut = () => {
-    Animated.parallel([
-      Animated.spring(scaleAnim, {
-        toValue: 1, // Return to normal size
-        friction: 4,
-        useNativeDriver: true,
-      }),
-      Animated.timing(opacityAnim, {
-        toValue: 1, // Restore opacity
-        duration: 150,
-        useNativeDriver: true,
-      }),
-    ]).start();
-  };
-
   let backgroundColor;
   let textColor;
   switch (type) {
     case ButtonType.Secondary:
       backgroundColor = Colors.blackLight;
+      textColor = Colors.white;
+      break;
+    case ButtonType.Delete:
+      backgroundColor = Colors.red;
       textColor = Colors.white;
       break;
     case ButtonType.Primary:
@@ -79,38 +45,9 @@ export const ThemedButton = ({
   }
 
   return (
-    <Pressable
-      onPressIn={handlePressIn}
-      onPressOut={handlePressOut}
-      onPress={onPress}
-      style={[styles.pressable, style, { backgroundColor }]}
-    >
-      <Animated.View
-        style={[
-          styles.button,
-          {
-            transform: [{ scale: scaleAnim }],
-            opacity: opacityAnim,
-          },
-        ]}
-      >
-        {icon && <Icon size={20} color={textColor} name={icon} />}
-        <ThemedText type={TextType.Bold}>{title}</ThemedText>
-      </Animated.View>
-    </Pressable>
+    <PressableView onPress={onPress} style={[style, { backgroundColor }]}>
+      {icon && <Icon size={20} color={textColor} name={icon} />}
+      <ThemedText type={TextType.Bold}>{title}</ThemedText>
+    </PressableView>
   );
 };
-const smallSpacing = getThemeProperty('smallSpacing');
-const borderRadius = getThemeProperty('borderRadius');
-const styles = StyleSheet.create({
-  pressable: {
-    borderRadius: borderRadius,
-    padding: smallSpacing,
-  },
-  button: {
-    gap: smallSpacing,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});

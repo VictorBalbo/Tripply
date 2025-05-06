@@ -1,5 +1,4 @@
-import MapView from '@/components/MapView';
-import { ThemedView } from '@/components/ui';
+import { MapView } from '@/components';
 import {
   MapProvider,
   TripProvider,
@@ -21,6 +20,7 @@ SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
   const background = useThemeColor('background');
+  const activeTint = useThemeColor('activeTint');
   const [loaded] = useFonts({
     SpaceMono: require('@/assets/fonts/SpaceMono-Regular.ttf'),
   });
@@ -48,13 +48,21 @@ export default function RootLayout() {
           <BottomSheet
             snapPoints={['20%', '50%', '90%']}
             enableDynamicSizing={false}
-            handleComponent={null}
             backgroundStyle={[
               styles.viewContainer,
               { backgroundColor: background },
             ]}
+            handleStyle={{
+              backgroundColor: background + '50',
+              position: 'absolute',
+              width: '100%',
+              borderTopLeftRadius: 50,
+              borderTopRightRadius: 50,
+            }}
+            handleIndicatorStyle={{
+              backgroundColor: activeTint,
+            }}
           >
-            <ThemedView softBackground style={[styles.handleIndicator]} />
             <BottomSheetScrollView style={styles.viewContainer}>
               <Slot />
             </BottomSheetScrollView>
@@ -66,7 +74,6 @@ export default function RootLayout() {
   );
 }
 
-const smallSpacing = getThemeProperty('smallSpacing');
 const borderRadius = getThemeProperty('borderRadius');
 
 const styles = StyleSheet.create({
@@ -76,14 +83,5 @@ const styles = StyleSheet.create({
   viewContainer: {
     borderTopLeftRadius: borderRadius * 3,
     borderTopRightRadius: borderRadius * 3,
-  },
-  handleIndicator: {
-    width: 40,
-    height: 4,
-    zIndex: 1,
-    borderRadius: borderRadius,
-    position: 'absolute',
-    top: smallSpacing,
-    alignSelf: 'center',
   },
 });
