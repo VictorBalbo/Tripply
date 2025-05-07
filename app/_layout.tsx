@@ -53,7 +53,7 @@ export default function RootLayout() {
               { backgroundColor: background },
             ]}
             handleStyle={{
-              backgroundColor: background + '50',
+              backgroundColor: background + '92',
               position: 'absolute',
               width: '100%',
               borderTopLeftRadius: 50,
