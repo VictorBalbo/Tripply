@@ -1,36 +1,40 @@
 // This file is a fallback for using MaterialIcons on Android and web.
 
-import { useThemeColor } from '@/hooks';
-import MaterialIcons from '@expo/vector-icons/MaterialIcons';
+import { useThemeColor } from '@/hooks/useTheme';
+import MaterialIcons from '@expo/vector-icons/MaterialCommunityIcons';
 import { SymbolWeight } from 'expo-symbols';
 import React from 'react';
 import { OpaqueColorValue, StyleProp, TextStyle } from 'react-native';
 
-// Add your SFSymbol to MaterialIcons mappings here.
+// Add your SFSymbol to MaterialCommunityIcons mappings here.
 const MAPPING = {
   // See MaterialIcons here: https://icons.expo.fyi
   // See SF Symbols in the SF Symbols app on Mac.
-  'house.fill': 'home',
-  'paperplane.fill': 'send',
-  'chevron.left.forwardslash.chevron.right': 'code',
   'chevron.right': 'chevron-right',
-  'chevron.down': 'keyboard-arrow-down',
-  'chevron.up': 'keyboard-arrow-up',
+  'chevron.down': 'chevron-down',
+  'chevron.up': 'chevron-up',
   'star.fill': 'star',
-  'plus': 'add',
-  'globe': 'link',
-  'calendar': 'calendar-month',
-  'dollarsign': 'attach-money',
-  'dollarsign.arrow.circlepath': 'currency-exchange',
-  'info.circle': 'info-outline',
-  'phone': 'phone',
-  'map': 'map',
-  'ticket': 'book-online',
-  'arrow.right': 'arrow-forward',
-  'bed.double.fill': 'king-bed',
-  'airplane.arrival': 'train',
-  'airplane.departure': 'train',
-  'sun.and.horizon.fill': 'sunny-snowing',
+  plus: 'plus',
+  'xmark': 'close',
+  trash: 'trash-can-outline',
+  globe: 'web',
+  calendar: 'calendar-month',
+  dollarsign: 'currency-usd',
+  'info.circle.fill': 'information',
+  'phone.fill': 'phone',
+  'map.fill': 'map',
+  'clock.fill': 'clock',
+  'ticket.fill': 'ticket-confirmation',
+  'arrow.right': 'arrow-right',
+  'bed.double.fill': 'bed-king',
+  'airplane.arrival': 'airplane-landing',
+  'airplane.departure': 'airplane-takeoff',
+  'sun.and.horizon.fill': 'weather-sunset',
+  'train.side.front.car': 'train',
+  'train.side.rear.car': 'train',
+  'bus.fill': 'bus',
+  'mappin.and.ellipse': 'map-marker',
+  'fork.knife': 'silverware-fork-knife',
 } as Partial<
   Record<
     import('expo-symbols').SymbolViewProps['name'],
@@ -61,7 +65,6 @@ export function Icon({
   if (!color) {
     color = defaultColor;
   }
-
   return (
     <MaterialIcons
       color={color}

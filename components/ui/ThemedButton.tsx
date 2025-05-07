@@ -47,7 +47,7 @@ export const ThemedButton = ({
   return (
     <PressableView onPress={onPress} style={[style, { backgroundColor }]}>
       {icon && <Icon size={20} color={textColor} name={icon} />}
-      <ThemedText type={TextType.Bold}>{title}</ThemedText>
+      <ThemedText type={TextType.Bold} style={{color: textColor}}>{title}</ThemedText>
     </PressableView>
   );
 };

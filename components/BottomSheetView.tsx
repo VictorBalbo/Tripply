@@ -68,7 +68,7 @@ export const BottomSheetView = ({
               style={styles.closeButton}
               onPress={closeButtonCallback!}
             >
-              <Icon name="plus" />
+              <Icon name="xmark" color={Colors.white}/>
             </PressableView>
 
             <Image
@@ -116,7 +116,6 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.black + 'B2',
     borderRadius: borderRadius * borderRadius,
     padding: smallSpacing,
-    transform: [{ rotateZ: '45deg' }],
   },
   headerImage: {
     height: HEADER_HEIGHT,
