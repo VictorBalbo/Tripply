@@ -56,7 +56,7 @@ export const MapProvider = ({ children }: PlaceProviderProps) => {
 export const useMapContext = (): MapContextType => {
   const context = useContext(MapContext);
   if (!context) {
-    throw new Error('useMapContext must be used within an AppProvider');
+    throw new Error('useMapContext must be used within an MapProvider');
   }
   return context;
 };

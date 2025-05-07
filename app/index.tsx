@@ -1,3 +1,4 @@
+import { HorizontalDivider, Icon } from '@/components/ui';
 import { CardView } from '@/components/ui/CardView';
 import { PressableView } from '@/components/ui/PressableView';
 import { TextType, ThemedText } from '@/components/ui/ThemedText';
@@ -32,41 +33,43 @@ export const Index = () => {
       )}
       <CardView style={styles.destinationsCard}>
         {destinations?.map((d, i) => (
-          <PressableView
-            key={d.id}
-            onPress={() => onPress(d)}
-            style={[
-              styles.destination,
-              i !== 0 ? styles.destinationBorder : '',
-              { borderColor },
-            ]}
-          >
-            <ThemedView style={styles.destinationName}>
-              <ThemedText type={TextType.Bold}>{d.place.name}</ThemedText>
-              <ThemedText type={TextType.Small}>
-                {utcDate(d.startDate).format('DD MMM')} -
-                {utcDate(d.endDate).format('DD MMM')}
-              </ThemedText>
-            </ThemedView>
-            <ThemedView style={styles.destinationActivities}>
-              <ThemedText type={TextType.Bold}>
-                {d.activities?.length ?? 0}
-              </ThemedText>
-              <ThemedText type={TextType.Small}>
-                {(d.activities?.length ?? 0) === 1 ? 'Activity' : 'Activities'}
-              </ThemedText>
-            </ThemedView>
-            <ThemedView style={styles.destinationNights}>
-              <ThemedText type={TextType.Bold}>
-                {utcDate(d.endDate).diff(d.startDate, 'days')}
-              </ThemedText>
-              <ThemedText type={TextType.Small}>
-                {utcDate(d.endDate).diff(d.startDate, 'days') === 1
-                  ? 'Night'
-                  : 'Nights'}
-              </ThemedText>
-            </ThemedView>
-          </PressableView>
+          <ThemedView key={i}>
+            <PressableView
+              onPress={() => onPress(d)}
+              style={styles.destination}
+            >
+              <Icon name='building.2.fill'/>
+              <ThemedView style={styles.destinationName}>
+                <ThemedText type={TextType.Bold}>{d.place.name}</ThemedText>
+                <ThemedText type={TextType.Small}>
+                  {utcDate(d.startDate).format('DD MMM')}
+                  {' - '}
+                  {utcDate(d.endDate).format('DD MMM')}
+                </ThemedText>
+              </ThemedView>
+              <ThemedView style={styles.destinationActivities}>
+                <ThemedText type={TextType.Bold}>
+                  {d.activities?.length ?? 0}
+                </ThemedText>
+                <ThemedText type={TextType.Small}>
+                  {(d.activities?.length ?? 0) === 1
+                    ? 'Activity'
+                    : 'Activities'}
+                </ThemedText>
+              </ThemedView>
+              <ThemedView style={styles.destinationNights}>
+                <ThemedText type={TextType.Bold}>
+                  {utcDate(d.endDate).diff(d.startDate, 'days')}
+                </ThemedText>
+                <ThemedText type={TextType.Small}>
+                  {utcDate(d.endDate).diff(d.startDate, 'days') === 1
+                    ? 'Night'
+                    : 'Nights'}
+                </ThemedText>
+              </ThemedView>
+            </PressableView>
+            {i !== destinations.length - 1 && <HorizontalDivider />}
+          </ThemedView>
         ))}
       </CardView>
     </ThemedView>
@@ -87,26 +90,26 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   destinationsCard: {
-    gap: smallSpacing,
     marginVertical: smallSpacing,
+    paddingVertical: 0,
   },
   destination: {
-    flexDirection: 'row',
+    flexDirection: 'column',
     justifyContent: 'space-between',
+    paddingVertical: largeSpacing,
   },
   destinationBorder: {
     borderTopWidth: 1,
-    paddingTop: smallSpacing,
   },
   destinationName: {
-    width: '50%',
+    flex: 2,
   },
   destinationActivities: {
-    width: '25%',
+    flex: 1,
     alignItems: 'center',
   },
   destinationNights: {
-    width: '25%',
+    flex: 1,
     alignItems: 'center',
   },
 });

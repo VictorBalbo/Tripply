@@ -35,6 +35,7 @@ const MAPPING = {
   'bus.fill': 'bus',
   'mappin.and.ellipse': 'map-marker',
   'fork.knife': 'silverware-fork-knife',
+  'building.2.fill': 'city',
 } as Partial<
   Record<
     import('expo-symbols').SymbolViewProps['name'],
