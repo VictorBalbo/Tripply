@@ -8,11 +8,11 @@ import {
 import BottomSheet, { BottomSheetScrollView } from '@gorhom/bottom-sheet';
 import { useFonts } from 'expo-font';
 import * as NavigationBar from 'expo-navigation-bar';
-import { Slot } from 'expo-router';
+import { Slot, usePathname } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { StatusBar } from 'expo-status-bar';
-import { useEffect } from 'react';
-import { Platform, StyleSheet } from 'react-native';
+import { useEffect, useRef } from 'react';
+import { Animated, Platform, StyleSheet } from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
@@ -21,6 +21,10 @@ SplashScreen.preventAutoHideAsync();
 export default function RootLayout() {
   const background = useThemeColor('background');
   const activeTint = useThemeColor('activeTint');
+
+  const fadeAnim = useRef(new Animated.Value(0)).current;
+  const pathName = usePathname();
+
   const [loaded] = useFonts({
     SpaceMono: require('@/assets/fonts/SpaceMono-Regular.ttf'),
   });
@@ -34,6 +38,15 @@ export default function RootLayout() {
       SplashScreen.hideAsync();
     }
   }, [loaded]);
+
+  useEffect(() => {
+    fadeAnim.setValue(0);
+    Animated.timing(fadeAnim, {
+      toValue: 1,
+      duration: 250,
+      useNativeDriver: true,
+    }).start();
+  }, [pathName]);
 
   if (!loaded) {
     return null;
@@ -64,7 +77,9 @@ export default function RootLayout() {
             }}
           >
             <BottomSheetScrollView style={styles.viewContainer}>
-              <Slot />
+              <Animated.View style={{ flex: 1, opacity: fadeAnim }}>
+                <Slot />
+              </Animated.View>
             </BottomSheetScrollView>
           </BottomSheet>
           <StatusBar style="auto" />
